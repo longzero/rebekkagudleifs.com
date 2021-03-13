@@ -1,0 +1,59 @@
+html, body {height: 100%;}
+body {background: #000; color: #ccc; margin: 0; font-family: Verdana, Geneva, sans-serif; font-size: 95%;}
+a {color: #fff;}
+a:hover {text-decoration: none;}
+h1 {margin: 0; padding: 0; padding-top: 14px; font-family: Arial, Helvetica, sans-serif; font-weight: normal;}
+h2 {color: #6c7347; font-size: 140%; font-weight: normal; margin-top: 14px; margin-bottom: 4px; padding: 0;}
+img {border: 0;}
+
+.clearboth {clear: both;}
+
+#header {margin: 0 auto; width: 910px;}
+#header a {text-decoration: none;}
+
+#navigation {font-size: 90%; margin: 0 auto; margin-top: 4px; margin-bottom: 9px; width: 910px;}
+#navigation a {color: #aaa; text-decoration: none;}
+#navigation a:hover {color: #fff;}
+#navigation strong a {color: #fff;}
+
+#main-navigation {float: left;}
+
+#category-navigation {float: right; color: #444;}
+
+/* Start PureCSSMenu.com STYLE */
+ul.pureCssMenu ul{background: #000; border-top: 1px solid #222; display:none;}
+ul.pureCssMenu li:hover>ul{display:block;}
+ul.pureCssMenu ul{position: absolute;left:-1px;top:100%;}
+ul.pureCssMenu,ul.pureCssMenu ul {margin:0px; list-style:none; padding:0px 2px 0px 0px;}
+ul.pureCssMenu {display:block;zoom:1;float: left;}
+ul.pureCssMenu li{display:block; color: #aaa;}
+ul.pureCssMenu a {display:block; padding: 0 5px 5px 5px;}
+ul.pureCssMenu li {float:left;}
+ul.pureCssMenu ul li {border-bottom: 1px solid #222; float:none; padding: 5px 5px 0;}
+ul.pureCssMenu ul a {text-align:left; white-space:nowrap;}
+ul.pureCssMenu li:hover{position:relative;}
+ul.pureCssMenu li a:hover{position:relative;}
+ul.pureCssMenu a:hover ul{display:block}
+/* End PureCSSMenu.com STYLE */
+
+#container {font-size: 90%; line-height: 1.24em; margin: 0 auto; overflow: hidden; width: 910px;}
+
+#photo {float: left; overflow: hidden; text-align: center; width: 675px;}
+
+#content, #thumbnails {float: left; background: #222; font-size: 90%; padding: 5px 10px; width: 215px; height: 440px; overflow: auto;}
+#content .news {margin-bottom: 34px;}
+#content a:hover {color: #6c7347;}
+
+#thumbnails {text-align: center;}
+#thumbnails img {border: 0; margin: 4px 0;}
+
+/**** FORM ****/
+
+.field {border: 0; border-bottom: 1px solid #aaa; background: #444; color: #fff; font-family: Arial, Helvetica, sans-serif; margin-bottom: 14px; text-align: right; width: 190px;}
+#content textarea {border: 0; background: #444; color: #fff; font-family: Arial, Helvetica, sans-serif; width: 190px; height: 104px;}
+
+/**** END FORM ****/
+
+#copyright {clear: both; color: #555; font-size: 70%; margin: 10px auto; margin-bottom: 4px; padding-bottom: 24px; width: 910px;}
+#copyright a {color: #aaa;}
+#copyright a:hover {color: #fff; text-decoration: none;}
