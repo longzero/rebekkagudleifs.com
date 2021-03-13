@@ -1,85 +1,35 @@
-html
-  head
-    meta(charset="utf-8")
-    meta(name="viewport" content="width=device-width,initial-scale=1")
-    title Rebekka Guðleifsdóttir
-    link(rel="icon" type="image/png" href="images/favicon.png")
-    link(rel="stylesheet" type="text/css" href="css/styles.css" media="all")
-  body
-    header.container.site-header
-      a.site-name rebekka
-        span(style="color:#6c7347;") guðleifsdóttir
-      nav.site-navigation
-        ul.site-navigation-list
-          //- li.site-navigation-item
-          //-   a.site-navigation-link(href="#") home
-          //- li.site-navigation-item
-          //-   a.site-navigation-link(href="#") contact
-          li.site-navigation-item
-            a.site-navigation-link(href="#") photos
-            ul.navigation-dropdown-list
-              li.navigation-dropdown-item
-                a.navigation-dropdown-link(href="#") self-portraits
-              li.navigation-dropdown-item
-                a.navigation-dropdown-link(href="#") people
-              li.navigation-dropdown-item
-                a.navigation-dropdown-link(href="#") scenery
-              li.navigation-dropdown-item
-                a.navigation-dropdown-link(href="#") fauna
-              li.navigation-dropdown-item
-                a.navigation-dropdown-link(href="#") water
-              li.navigation-dropdown-item
-                a.navigation-dropdown-link(href="#") film
-              li.navigation-dropdown-item
-                a.navigation-dropdown-link(href="#") dolls
-          li.site-navigation-item
-            a.site-navigation-link(href="#") drawings
-          li.site-navigation-item
-            a.site-navigation-link(href="#") sweaters
+extends layouts/index.pug
 
-    main.container.site-body
-      .site-media
-        img(src="photos/contact.jpg" width="675" alt="")
-      .site-content#content
-        h2
-          span(style='color:#fff;') about
-          | rebekka
-        p Visual artist and photographer.
-        p Here you will find a selection of my best photographs and drawings. A larger collection can be viewed <a href="http://www.flickr.com/photos/rebba">on flickr</a>.
-        p All photographs are taken by myself (also the ones with me in them) and all post-processing is done by me.
-        p In addition to photography and drawing, a great deal of my time is spent custom designing and hand-knitting sweaters.
+block content
+  main.container.site-body.default
+    .site-media
+      img(src="/photos/main.jpg" alt="")
+    .site-content#content
+      h2
+        span(style='color:#fff;') about
+        | rebekka
+      p Visual artist and photographer.
+      p Here you will find a selection of my best photographs and drawings. A larger collection can be viewed <a href="http://www.flickr.com/photos/rebba">on flickr</a>.
+      p All photographs are taken by myself (also the ones with me in them) and all post-processing is done by me.
+      p In addition to photography and drawing, a great deal of my time is spent custom designing and hand-knitting sweaters.
 
-        //- p I am self-taught.
-        //- p I decided to become a photographer in May of 2005.
-        //- p There is nothing i would rather do.
-        //- p I primarily shoot digital, because it&apos;s more accessible, but i work with film whenever i get the chance and i have  a darkroom at my disposal.
-        //- p My equipment is as follows:
-        //- p Cameras
-        //- ul
-        //-   li Canon EOS 5D (dslr)
-        //-   li Canon EOS 350D (dslr)
-        //-   li Canon EOS 500 (slr)
-        //- p Lenses (all Canon)
-        //- ul
-        //-   li 10-22mm EFS
-        //-   li 18-55mm EFS
-        //-   li 100mm f/2 EF
-        //-   li 17-40mm EF
-        //-   li 15mm EF (fisheye)
-        //- p Canon Speedlite 580EX<br>
-        //-   | ST-E2 transmitter<br>
-        //-   | Cable remote
-
-    footer.container.site-footer &copy; 2006-#{new Date().getFullYear()} Rebekka Guðleifsdóttir. All Rights Reserved.
-      | Design by <a href="//longzero.com">Long Nguyen</a>.
-      | Check out the <a href="//fb.com/rebekkagudleifs">Facebook Page</a>.
-
-    script.
-      //- FOR DEVELOPMENT ONLY
-      if (window.location.href.indexOf('.local') > -1) {
-        console.log("readyState: " + document.readyState)
-        console.log('Website is running locally')
-        let script = document.createElement('script');
-        script.src = 'js/live.js';
-        document.write(script.outerHTML);
-      }
+      //- p I am self-taught.
+      //- p I decided to become a photographer in May of 2005.
+      //- p There is nothing i would rather do.
+      //- p I primarily shoot digital, because it&apos;s more accessible, but i work with film whenever i get the chance and i have  a darkroom at my disposal.
+      //- p My equipment is as follows:
+      //- p Cameras
+      //- ul
+      //-   li Canon EOS 5D (dslr)
+      //-   li Canon EOS 350D (dslr)
+      //-   li Canon EOS 500 (slr)
+      //- p Lenses (all Canon)
+      //- ul
+      //-   li 10-22mm EFS
+      //-   li 18-55mm EFS
+      //-   li 100mm f/2 EF
+      //-   li 17-40mm EF
+      //-   li 15mm EF (fisheye)
+      //- p Canon Speedlite 580EX<br>
+      //-   | ST-E2 transmitter<br>
+      //-   | Cable remote

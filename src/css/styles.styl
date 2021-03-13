@@ -3,6 +3,9 @@ site-width = 910px
 *
   box-sizing: border-box
 
+html
+  scroll-behavior: smooth
+
 body
   background: #000;
   color: #ccc;
@@ -21,6 +24,9 @@ h2
   margin-top: 14px;
   margin-bottom: 4px;
   padding: 0;
+
+img
+  max-width: 100%
 
 .container
   margin-left auto
@@ -53,15 +59,18 @@ h2
 
 .site-body
   display: flex
+  // height: calc(100vh - 64px - 41px)
+  height 500px
 
 .site-content
   background: #222;
   flex-grow 1
   font-size: .9em;
   line-height: 1.24;
-  padding: 5px 20px;
-  width: 215px;
-  height: 450px;
+  padding: 20px;
+  scroll-behavior: smooth
+  max-height: 100%
+  width: calc(190px + 40px);
   overflow: auto;
 
 .site-footer
@@ -81,6 +90,13 @@ h2
   justify-content: space-between
   margin-bottom: 10px;
 
+.site-media
+  text-align: center
+  width 100%
+  img
+    max-height: 100%
+    width auto
+
 .site-name
   font-family: Arial, Helvetica, sans-serif;
   font-size 2em
@@ -88,6 +104,7 @@ h2
   margin: 0 0 5px;
   padding: 1em 0 0;
   padding-top: 14px;
+  text-decoration: none
 
 .site-navigation
   font-size: .9em
@@ -108,3 +125,20 @@ h2
   color #aaa
   &:hover
     color #fff
+
+.thumbnail-link
+  display block
+  margin 0 auto 20px
+  max-width: 190px
+  &:last-child
+    margin-bottom 0
+
+
+.default
+  height 480px
+  .site-media
+    img
+      display: block
+      width 100%
+  .site-content
+    //

@@ -34,7 +34,7 @@ gulp.task('html', () =>
     .pipe(gulp.dest('html'))
 );
 
-// List photos
+// LIST PHOTOS
 gulp.task('photos', () =>
   gulp.src(getAllFiles('./html/photos/'))
     .pipe(filelist('photos.json'))
@@ -49,4 +49,4 @@ gulp.task('watch', gulp.series('styles', 'html', 'photos', (done) => {
 
 // TASKS
 // Bundled tasks
-gulp.task('default', gulp.series('styles', 'html', 'photos'));
+gulp.task('default', gulp.series('photos', 'styles', 'html'));
