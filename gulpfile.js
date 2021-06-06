@@ -2,6 +2,10 @@ const filelist = require('gulp-filelist'); // To list files
 const fs = require("fs"); // To list files
 
 const gulp = require('gulp');
+const jsonConcat = require('gulp-json-concat');
+const markdownToJSON = require('gulp-markdown-to-json'); // https://www.npmjs.com/package/gulp-markdown-to-json
+const markdown = require('gulp-markdown');
+const marked = require('marked');
 const path = require("path"); // To list files
 const pug = require('gulp-pug-3'); // Template engine https://github.com/pugjs/pug
 const stylus = require('gulp-stylus'); // CSS preprocessor
@@ -20,9 +24,26 @@ const getAllFiles = function(dirPath, arrayOfFiles) {
   return arrayOfFiles
 }
 
+
+
+// ARTICLES
+marked.setOptions({
+  breaks: true,
+  smartypants: true
+});
+gulp.task('articles', () =>
+  gulp.src('src/html/articles/**/*.md')
+    .pipe(markdownToJSON(marked)) // Convert md files to json files
+    .pipe(gulp.dest('html/data/articles'))
+    .pipe(jsonConcat('articles.json',function(data){ // merge json files
+      return new Buffer.from(JSON.stringify(data));
+    }))
+    .pipe(gulp.dest('html/data'))
+);
+
 // CSS
 gulp.task('styles', () =>
-  gulp.src('src/css/styles.styl')
+  gulp.src('src/css/**/*.styl')
     .pipe(stylus())
     .pipe(gulp.dest('html/css/'))
 );
@@ -41,12 +62,20 @@ gulp.task('photos', () =>
     .pipe(gulp.dest('html/data'))
 );
 
+// MARKDOWN
+gulp.task('markdown', () =>
+  gulp.src('src/html/articles/**/*.md')
+    .pipe(markdown())
+    .pipe(gulp.dest('html/articles'))
+);
+
 // WATCH
 gulp.task('watch', gulp.series('styles', 'html', 'photos', (done) => {
+  gulp.watch('src/html/articles/**/*.md', gulp.parallel('articles'));
   gulp.watch('src/css/**/*.styl', gulp.parallel('styles'));
   gulp.watch('src/html/**/*.pug', gulp.parallel('html'));
 }));
 
 // TASKS
 // Bundled tasks
-gulp.task('default', gulp.series('photos', 'styles', 'html'));
+gulp.task('default', gulp.series('photos', 'styles', 'articles', 'html'));
