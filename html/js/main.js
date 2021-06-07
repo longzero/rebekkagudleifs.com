@@ -1,4 +1,5 @@
 DEBUG = true
+if (DEBUG) console.warn("DEBUG is on.")
 
 let isArticle = false
 
@@ -50,8 +51,8 @@ if (articlesContainer && articleWrapper) {
 
     for (const key in articles) {
       if (articles.hasOwnProperty(key)) {
-        // console.log(articles[key].title)
-        // console.log(articles[key].slug)
+        // DEBUG && console.log(articles[key].title)
+        // DEBUG && console.log(articles[key].slug)
 
         // let link = '/#/articles/' + articles[key].slug
         let link = '/#/articles/' + key // Use the file name as the slug
@@ -65,19 +66,52 @@ if (articlesContainer && articleWrapper) {
       }
     }
 
+
+    let articleBodyClass = 'article-body'
+    let articleTitleClass = 'article-title'
+
+    function correctImagePaths() {
+      let images = document.querySelectorAll(articleBodyClass + '.article-image')
+      DEBUG && console.log(images.length)
+      for (let i=0; i<images.length; i=i+1) {
+        // https://stackoverflow.com/a/54691801/2716287
+        images[i].src = window.location.origin + '/articles/images/' + images[i].src
+      }
+    }
+
     function displayArticle(slug) {
-      console.log(slug)
+      DEBUG && console.log(slug)
+
+      articleWrapper.innerHTML = "" // Reset article
+
       if (slug != "") {
         isArticle = true
         document.body.classList.add('show-article')
         let key = slug.split("/");
         key = key[key.length - 1]
-        // console.warn(key)
-        // console.log(articles)
-        // console.log(articles[key].title)
-        // console.log(articles[key].body)
-        articleWrapper.innerHTML = "<h1>" + articles[key].title + "</h1>"
-        + articles[key].body
+        // DEBUG && console.warn(key)
+        // DEBUG && console.log(articles)
+        // DEBUG && console.log(articles[key].title)
+        // DEBUG && console.log(articles[key].body)
+        // DEBUG && console.warn(typeof articles[key].body)
+
+        let articleImage = document.createElement('img')
+        articleImage.classList.add('article-image')
+        articleImage.src = '/articles/images/' + articles[key].image
+        let articleImageWrapper = document.createElement('div')
+        articleImageWrapper.classList.add('article-main-media')
+        articleImageWrapper.appendChild(articleImage)
+        let articleTitle = document.createElement('h1')
+        articleTitle.classList.add(articleTitleClass)
+        articleTitle.innerHTML = articles[key].title
+        let articleBody = document.createElement('div')
+        articleBody.classList.add(articleBodyClass)
+        articleBody.innerHTML = articles[key].body
+        articleWrapper.appendChild(articleImageWrapper)
+        articleWrapper.appendChild(articleTitle)
+        articleWrapper.appendChild(articleBody)
+
+        correctImagePaths()
       }
       else {
         isArticle = false

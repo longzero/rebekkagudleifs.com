@@ -36,7 +36,10 @@ gulp.task('articles', () =>
     .pipe(markdownToJSON(marked)) // Convert md files to json files
     .pipe(gulp.dest('html/data/articles'))
     .pipe(jsonConcat('articles.json',function(data){ // merge json files
-      return new Buffer.from(JSON.stringify(data));
+      for (const key in data) {
+        // console.log(data[key].status)
+        if (data[key].status === 1) return new Buffer.from(JSON.stringify(data));
+      }
     }))
     .pipe(gulp.dest('html/data'))
 );

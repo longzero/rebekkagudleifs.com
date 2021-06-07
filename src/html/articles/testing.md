@@ -1,7 +1,8 @@
 ---
 title: "testing front matter"
 date: "2021-06-05"
-slug: "testing-front-matter"
+image: holding-the-sun.jpg
+status: 1
 ---
 
 Line 1
