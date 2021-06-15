@@ -4,6 +4,7 @@
   "devDependencies": {
     "fs": "^0.0.1-security",
     "gulp": "^4.0.2",
+    "gulp-clean": "^0.4.0",
     "gulp-filelist": "^2.0.5",
     "gulp-json-concat": "^0.2.0",
     "gulp-markdown": "^6.0.0",

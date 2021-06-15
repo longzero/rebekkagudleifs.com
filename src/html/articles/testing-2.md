@@ -2,7 +2,7 @@
 title: "Getting a new phone under 500$"
 date: "2021-06-05"
 image: name-of-image.jpg
-status: 1
+status: 0
 ---
 
 My multiple falls from my electric unicycle didn't just damage my body, but my phone is also a casualty.
@@ -15,7 +15,7 @@ Yesterday, my phone started acting app with its power button being oversensitive
 
 Since I bought a Nexus 5 secondhand in 2015 and had a good experience, I vowed never to buy a phone over 500$, because I just find it ridiculous to spend 1000$ for a phone.
 
-<img class="article-image" src="holding-the-sun.jpg" alt="Alt text" loading="lazy">
+<img src="holding-the-sun.jpg" alt="" class="article-image" loading="lazy">
 
 Since then, I had the OnePlus X, Google Pixel and Google Pixel 3, all secondhand, all bought between 200 and 400$.
 

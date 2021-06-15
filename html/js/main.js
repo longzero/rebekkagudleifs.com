@@ -54,15 +54,17 @@ if (articlesContainer && articleWrapper) {
         // DEBUG && console.log(articles[key].title)
         // DEBUG && console.log(articles[key].slug)
 
-        // let link = '/#/articles/' + articles[key].slug
-        let link = '/#/articles/' + key // Use the file name as the slug
+        if (articles[key].status == 1) {
+          // let link = '/#/articles/' + articles[key].slug
+          let link = '/#/articles/' + key // Use the file name as the slug
 
-        let articleLink = document.createElement('a')
-        articleLink.classList.add('article-link')
-        articleLink.href = link
-        articleLink.innerHTML = articles[key].title
-        articleLink.setAttribute('data-article-link', link)
-        articlesContainer.appendChild(articleLink);
+          let articleLink = document.createElement('a')
+          articleLink.classList.add('article-link')
+          articleLink.href = link
+          articleLink.innerHTML = articles[key].title
+          articleLink.setAttribute('data-article-link', link)
+          articlesContainer.appendChild(articleLink);
+        }
       }
     }
 
@@ -70,13 +72,10 @@ if (articlesContainer && articleWrapper) {
     let articleBodyClass = 'article-body'
     let articleTitleClass = 'article-title'
 
-    function correctImagePaths() {
-      let images = document.querySelectorAll(articleBodyClass + '.article-image')
-      DEBUG && console.log(images.length)
-      for (let i=0; i<images.length; i=i+1) {
-        // https://stackoverflow.com/a/54691801/2716287
-        images[i].src = window.location.origin + '/articles/images/' + images[i].src
-      }
+    function correctImagePaths(articleBodyContent) {
+      let string = '<img src="'
+      let path = string + window.location.origin + '/articles/images/'
+      return articleBodyContent.replace(/<img src="/g, path);
     }
 
     function displayArticle(slug) {
@@ -89,6 +88,7 @@ if (articlesContainer && articleWrapper) {
         document.body.classList.add('show-article')
         let key = slug.split("/");
         key = key[key.length - 1]
+
         // DEBUG && console.warn(key)
         // DEBUG && console.log(articles)
         // DEBUG && console.log(articles[key].title)
@@ -98,20 +98,22 @@ if (articlesContainer && articleWrapper) {
         let articleImage = document.createElement('img')
         articleImage.classList.add('article-image')
         articleImage.src = '/articles/images/' + articles[key].image
+
         let articleImageWrapper = document.createElement('div')
         articleImageWrapper.classList.add('article-main-media')
         articleImageWrapper.appendChild(articleImage)
+
         let articleTitle = document.createElement('h1')
         articleTitle.classList.add(articleTitleClass)
         articleTitle.innerHTML = articles[key].title
+
         let articleBody = document.createElement('div')
         articleBody.classList.add(articleBodyClass)
-        articleBody.innerHTML = articles[key].body
+        articleBody.innerHTML = correctImagePaths(articles[key].body)
+
         articleWrapper.appendChild(articleImageWrapper)
         articleWrapper.appendChild(articleTitle)
         articleWrapper.appendChild(articleBody)
-
-        correctImagePaths()
       }
       else {
         isArticle = false

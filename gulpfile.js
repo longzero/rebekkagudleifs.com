@@ -2,6 +2,7 @@ const filelist = require('gulp-filelist'); // To list files
 const fs = require("fs"); // To list files
 
 const gulp = require('gulp');
+const clean = require('gulp-clean');
 const jsonConcat = require('gulp-json-concat');
 const markdownToJSON = require('gulp-markdown-to-json'); // https://www.npmjs.com/package/gulp-markdown-to-json
 const markdown = require('gulp-markdown');
@@ -41,6 +42,7 @@ gulp.task('articles', () =>
         if (data[key].status === 1) return new Buffer.from(JSON.stringify(data));
       }
     }))
+    .pipe(clean())
     .pipe(gulp.dest('html/data'))
 );
 
