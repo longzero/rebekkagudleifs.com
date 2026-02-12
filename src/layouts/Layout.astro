@@ -1,0 +1,82 @@
+---
+import '../styles/concept.css';
+
+interface Props {
+  title?: string;
+  section?: string;
+  thumbnailHeight?: number;
+}
+
+const { title, section = 'home', thumbnailHeight } = Astro.props;
+const displayTitle = title ? `${title} | Rebekka Guðleifsdóttir` : "Rebekka Guðleifsdóttir";
+---
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  <title>{displayTitle}</title>
+  <link rel="icon" type="image/png" href="/images/favicon.png" />
+  <meta name="keywords" content="photography, photographer, Iceland, rebekka, gudleifsdottir, landscape, selfportraits, portraits, horses">
+
+  {thumbnailHeight && (
+    <style is:inline define:vars={{ height: `${thumbnailHeight}px` }}>
+      #thumbnails { height: var(--height) !important; padding-top: 0; padding-bottom: 0; }
+      #content { height: var(--height) !important; padding-top: 0; padding-bottom: 0; }
+    </style>
+  )}
+</head>
+<body>
+<div id="header">
+  <h1><a href="/">rebekka<span style="color:#6c7347;">guðleifsdóttir</span></a></h1>
+</div>
+
+<div id="navigation">
+	<div class="clearboth"></div>
+	<div id="main-navigation">
+    {section === 'home' ? (
+      <strong><a href="/">home</a></strong>
+    ) : (
+      <a href="/">home</a>
+    )}
+		&middot;
+    {section === 'contact' ? (
+      <strong><a href="/contact">contact</a></strong>
+    ) : (
+      <a href="/contact">contact</a>
+    )}
+		&middot; <a href="http://www.rebekkagudleifs.com/blog/">blog</a>
+		&middot; <a href="http://www.rebekkagudleifs.com/shop" target="_blank">shop</a>
+	</div>
+	<div id="category-navigation">
+    <ul class="pureCssMenu pureCssMenum">
+    	<li><a href="#">photos</a>
+      	<ul class="pureCssMenum">
+      		<li><a href="/self-portraits">self-portraits</a></li>
+      		<li><a href="/people">people</a></li>
+      		<li><a href="/scenery">scenery</a></li>
+      		<li><a href="/fauna">fauna</a></li>
+      		<li><a href="/water">water</a></li>
+      		<li><a href="/film">film</a></li>
+      		<li><a href="/dolls">dolls</a></li>
+      	</ul>
+    	</li>
+    	<li> &middot; </li>
+    	<li><a href="/drawings">drawings</a></li>
+    	<li> &middot; </li>
+    	<li><a href="/sweaters">sweaters</a></li>
+    </ul>
+	</div>
+	<div class="clearboth"></div>
+</div>
+
+<slot />
+
+<div id="copyright">
+	&copy; 2006-2026 Rebekka Guðleifsdóttir. All Rights Reserved.
+	Design by <a href="http://www.longzero.com/" target="_blank">Long Nguyen</a>.
+	Check out the <a href="http://www.facebook.com/rebekkagudleifs" target="_blank">Facebook Page</a>.
+</div>
+
+</body>
+</html>

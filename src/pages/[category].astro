@@ -1,0 +1,96 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+
+// Get category from URL params
+const { category } = Astro.params;
+const photoParam = Astro.url.searchParams.get('photo');
+
+// Categories that should be handled by this template
+const validCategories = [
+  'self-portraits', 'people', 'scenery', 'fauna', 'water', 'film', 'dolls', 'drawings', 'sweaters'
+];
+
+if (!category || !validCategories.includes(category)) {
+  return Astro.redirect('/404');
+}
+
+// Load all photos
+const allPhotos = import.meta.glob('../assets/photos/**/*.jpg', { eager: true });
+
+// Filter photos for this category (excluding thumbnails)
+const categoryPhotos = Object.entries(allPhotos)
+  .filter(([path]) => path.includes(`/photos/${category}/`) && !path.includes('/thumbnails/'))
+  .map(([path, module]: any) => ({
+    name: path.split('/').pop() || '',
+    data: module.default
+  }));
+
+// Filter thumbnails for this category
+const categoryThumbnails = Object.entries(allPhotos)
+  .filter(([path]) => path.includes(`/photos/${category}/thumbnails/`))
+  .reduce((acc, [path, module]: any) => {
+    const fileName = path.split('/').pop();
+    if (fileName) acc[fileName] = module.default;
+    return acc;
+  }, {} as Record<string, any>);
+
+if (categoryPhotos.length === 0) {
+  // Try to find if there are photos directly in the folder if thumbnails subfolder doesn't exist
+  if (categoryPhotos.length === 0) {
+     return Astro.redirect('/404');
+  }
+}
+
+// Sort photos numerically
+categoryPhotos.sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }));
+
+let currentPhoto: any = null;
+if (photoParam) {
+  currentPhoto = categoryPhotos.find(p => p.name === photoParam);
+}
+
+// Logic if no specific photo or not found: Pick a random one
+if (!currentPhoto) {
+  // Preference for landscape photos for the "star" position
+  const landscapes = categoryPhotos.filter(p => p.data.width > p.data.height);
+  if (landscapes.length > 0) {
+    currentPhoto = landscapes[Math.floor(Math.random() * landscapes.length)];
+  } else {
+    currentPhoto = categoryPhotos[Math.floor(Math.random() * categoryPhotos.length)];
+  }
+}
+
+const width = currentPhoto.data.width;
+const height = currentPhoto.data.height;
+const displayHeight = (width <= height) ? 500 : 440;
+---
+
+<Layout title={category} section={category} thumbnailHeight={displayHeight}>
+  <div id="container">
+    <div id="photo">
+      {currentPhoto && (
+        <Image
+          src={currentPhoto.data}
+          width={675}
+          alt={currentPhoto.name}
+          height={width <= height ? 500 : undefined}
+          style={width <= height ? { height: '500px', width: 'auto' } : { width: '675px', height: 'auto' }}
+        />
+      )}
+    </div>
+    <div id="thumbnails">
+      {categoryPhotos.map((p, index) => {
+        const thumb = categoryThumbnails[p.name] || p.data;
+        const prevPhoto = index > 0 ? categoryPhotos[index-1].name : null;
+        const href = `/${category}?photo=${p.name}${prevPhoto ? '#' + prevPhoto : ''}`;
+
+        return (
+          <a href={href} name={p.name}>
+             <Image src={thumb} width={190} alt={p.name} />
+          </a>
+        );
+      })}
+    </div>
+  </div>
+</Layout>

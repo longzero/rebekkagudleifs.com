@@ -1,18 +1,25 @@
-# Include your project-specific ignores in this file
-# Read about how to use .gitignore: https://help.github.com/articles/ignoring-files
-.cache-loader
-.DS_Store
-.htaccess
-.sass-cache/
-# dist
-node_modules
-npm-debug.log
-wordpress/wp-content/uploads/cache/
-vendor
-wp-config.php
-wp-content/uploads
-yarn-error.log
+# build output
+dist/
+# generated types
+.astro/
 
-*.css
-*.html
-html/**/*.json
+# dependencies
+node_modules/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+
+# environment variables
+.env
+.env.production
+
+# macOS-specific files
+.DS_Store
+
+# jetbrains setting folder
+.idea/
+.vercel

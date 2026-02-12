@@ -1,0 +1,57 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+
+// Load all photos from self-portraits for the home page random image
+const photos = import.meta.glob('../assets/photos/self-portraits/*.jpg', { eager: true });
+const photoKeys = Object.keys(photos);
+
+let randomPhoto: any;
+let width = 0;
+let height = 0;
+
+if (photoKeys.length > 0) {
+  // Try to find a landscape photo (width > height) as per original PHP logic
+  const maxAttempts = 20;
+  let attempts = 0;
+  let found = false;
+
+  while (attempts < maxAttempts && !found) {
+    const randomKey = photoKeys[Math.floor(Math.random() * photoKeys.length)];
+    const module: any = photos[randomKey];
+    const p = module.default;
+    if (p.width > p.height) {
+      randomPhoto = p;
+      width = p.width;
+      height = p.height;
+      found = true;
+    }
+    attempts++;
+  }
+
+  // Fallback to any random photo if no landscape found
+  if (!found) {
+    const randomKey = photoKeys[Math.floor(Math.random() * photoKeys.length)];
+    randomPhoto = (photos[randomKey] as any).default;
+    width = randomPhoto.width;
+    height = randomPhoto.height;
+  }
+}
+
+const displayHeight = (width <= height) ? 500 : 440;
+---
+
+<Layout section="home" thumbnailHeight={displayHeight}>
+  <div id="container">
+    <div id="photo">
+      {randomPhoto && <Image src={randomPhoto} width={675} alt="Rebekka Photo" />}
+    </div>
+    <div id="content">
+      <h2><span style="color:#fff;">about</span>rebekka</h2>
+      <p>Visual artist and photographer.</p>
+      <p>Here you will find a selection of my best photographs and drawings. A larger collection can be viewed <a href="http://www.flickr.com/photos/rebba" target="_blank">on flickr</a>.</p>
+      <p>All photographs are taken by myself (also the ones with me in them) and all post-processing is done by me.</p>
+      <p>In addition to photography and drawing, a great deal of my time is spent custom designing and hand-knitting sweaters.</p>
+    </div>
+  </div>
+</Layout>
