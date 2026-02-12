@@ -20,7 +20,11 @@ const allPhotos = import.meta.glob('../assets/photos/**/*.jpg', { eager: true })
 
 // Filter photos for this category (excluding thumbnails)
 const categoryPhotos = Object.entries(allPhotos)
-  .filter(([path]) => path.includes(`/photos/${category}/`) && !path.includes('/thumbnails/'))
+  .filter(([path]) => {
+    const normalizedPath = path.toLowerCase();
+    const normalizedCategory = category!.toLowerCase();
+    return normalizedPath.includes(`/photos/${normalizedCategory}/`) && !normalizedPath.includes('/thumbnails/');
+  })
   .map(([path, module]: any) => ({
     name: path.split('/').pop() || '',
     data: module.default
@@ -28,7 +32,11 @@ const categoryPhotos = Object.entries(allPhotos)
 
 // Filter thumbnails for this category
 const categoryThumbnails = Object.entries(allPhotos)
-  .filter(([path]) => path.includes(`/photos/${category}/thumbnails/`))
+  .filter(([path]) => {
+    const normalizedPath = path.toLowerCase();
+    const normalizedCategory = category!.toLowerCase();
+    return normalizedPath.includes(`/photos/${normalizedCategory}/thumbnails/`);
+  })
   .reduce((acc, [path, module]: any) => {
     const fileName = path.split('/').pop();
     if (fileName) acc[fileName] = module.default;
